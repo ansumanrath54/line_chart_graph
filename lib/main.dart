@@ -43,43 +43,67 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: SfCartesianChart(
-              title: ChartTitle(text: 'Pedometer Analysis', textStyle: TextStyle(color: Colors.white70)),
-              legend: Legend(isVisible: true),
-              backgroundColor: Color(0xff020227),
-              borderColor: Colors.white,
-              tooltipBehavior: _tooltipBehavior,
-              zoomPanBehavior: _zoomPanBehavior,
-              series: <ChartSeries>[
-                SplineAreaSeries<ChartData, String>(
-                  name: "Pedometer",
-                  dataSource: _chartData,
-                  xValueMapper: (ChartData data, _) => data.date,
-                  yValueMapper: (ChartData data, _) => data.steps,
-                  dataLabelSettings: DataLabelSettings(isVisible: true),
-                  enableTooltip: true,
-                  color: const Color.fromRGBO(75, 135, 185, 0.6),
-                  borderColor: const Color.fromRGBO(75, 135, 185, 1),
-                  borderWidth: 2,
-                )
-              ],
-              primaryXAxis: CategoryAxis(
-                title: AxisTitle(text: "Date", textStyle: TextStyle(color: Colors.white70)),
-                edgeLabelPlacement: EdgeLabelPlacement.shift,
-                interval: 1,
-                name: 'Date',
-                majorGridLines: MajorGridLines(width: 0),
-                visibleMinimum: 0,
-                visibleMaximum: 4
-              ),
-              primaryYAxis: NumericAxis(
-                title: AxisTitle(text: "Steps", textStyle: TextStyle(color: Colors.white70)),
-                interval: 50,
-                  majorGridLines: MajorGridLines(width: 0),
-                visibleMinimum: 0,
-                visibleMaximum: 300,
+            body: Center(
+              child: Container(
+                width: 300,
+                height: 250,
+                child: SfCartesianChart(
+                  //title: ChartTitle(text: 'Pedometer Analysis', textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                  //legend: Legend(isVisible: true),
+                  enableAxisAnimation: true,
+                  backgroundColor: Colors.white,
+                  //borderColor: Colors.white,
+                  //plotAreaBackgroundColor: Color(0xff020227),
+                  tooltipBehavior: _tooltipBehavior,
+                  zoomPanBehavior: _zoomPanBehavior,
+                  series: <ChartSeries>[
+                    SplineAreaSeries<ChartData, String>(
+                      name: "",
+                      dataSource: _chartData,
+                      xValueMapper: (ChartData data, _) => data.date,
+                      yValueMapper: (ChartData data, _) => data.steps,
+                      //dataLabelSettings: DataLabelSettings(isVisible: true),
+                      enableTooltip: false,
+                      //color: const Color(0xff6848D3),
+                      //borderColor: const Color.fromRGBO(75, 135, 185, 1),
+                      borderWidth: 2,
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end:  Alignment.bottomCenter,
+                        colors: [
+                        Color(0xffFB7900),
+                        Color(0xff6848D3)
+                      ],)
+                    )
+                  ],
+                  primaryXAxis: CategoryAxis(
+                    //title: AxisTitle(text: "Date", textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                    edgeLabelPlacement: EdgeLabelPlacement.shift,
+                    interval: 1,
+                    name: 'Date',
+                    majorGridLines: MajorGridLines(width: 0),
+                    visibleMinimum: 0,
+                    visibleMaximum: 3
+                  ),
+                  primaryYAxis: NumericAxis(
+                    //title: AxisTitle(text: "Steps", textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                    interval: 100,
+                      majorGridLines: MajorGridLines(width: 0),
+                    visibleMinimum: 0,
+                    visibleMaximum: maxVerticalAxis(),
+                  ),
+                ),
               ),
             )));
   }
+}
+
+double maxVerticalAxis() {
+  double d;
+  if(getMax()%100 == 0)
+    d = getMax().toDouble();
+  else
+    d = ((getMax()/100)+1)*100;
+  return d;
 }
 

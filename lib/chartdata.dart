@@ -2,11 +2,11 @@
 class ChartData {
   ChartData(this.date, this.steps);
   final String date;
-  final int steps;
+  int steps;
 }
 
 List<ChartData> getChartData() {
-  final List<ChartData> chartData = [
+  List<ChartData> chartData = [
     ChartData("Sept 1",0),
     ChartData("Sept 2",60),
     ChartData("Sept 3",20),
@@ -38,5 +38,21 @@ List<ChartData> getChartData() {
     ChartData("Sept 29",170),
     ChartData("Sept 30",150),
   ];
+  for(int i=0;i<chartData.length;i++) {
+    if(chartData[i].steps % 4 != 0) {
+      chartData[i].steps = ((chartData[i].steps / 4)+1).toInt();
+      chartData[i].steps = (chartData[i].steps * 4).toInt();
+    }
+  }
   return chartData;
+}
+
+int getMax() {
+  List <ChartData>? data = getChartData();
+  int max = 0;
+  for(int i=0;i<getChartData().length;i++) {
+    if(max<data[i].steps)
+      max = data[i].steps;
+  }
+  return max;
 }

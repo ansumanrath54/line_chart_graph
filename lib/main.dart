@@ -33,9 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     _chartData = getChartData();
     _tooltipBehavior = TooltipBehavior(enable: true);
-    _zoomPanBehavior = ZoomPanBehavior(
-      enablePanning: true,
-    );
+    _zoomPanBehavior = ZoomPanBehavior(enablePanning: true);
     super.initState();
   }
 
@@ -43,17 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
             body: Center(
               child: Container(
-                width: 300,
-                height: 250,
+                width: 300, height: 250,
                 child: SfCartesianChart(
-                  //title: ChartTitle(text: 'Pedometer Analysis', textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                  //legend: Legend(isVisible: true),
-                  enableAxisAnimation: true,
+                  enableAxisAnimation: false,
                   backgroundColor: Colors.white,
-                  //borderColor: Colors.white,
-                  //plotAreaBackgroundColor: Color(0xff020227),
                   tooltipBehavior: _tooltipBehavior,
                   zoomPanBehavior: _zoomPanBehavior,
                   series: <ChartSeries>[
@@ -62,10 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       dataSource: _chartData,
                       xValueMapper: (ChartData data, _) => data.date,
                       yValueMapper: (ChartData data, _) => data.steps,
-                      //dataLabelSettings: DataLabelSettings(isVisible: true),
-                      enableTooltip: false,
-                      //color: const Color(0xff6848D3),
-                      //borderColor: const Color.fromRGBO(75, 135, 185, 1),
+                      enableTooltip: true,
                       borderWidth: 2,
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -77,20 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ],
                   primaryXAxis: CategoryAxis(
-                    //title: AxisTitle(text: "Date", textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
                     edgeLabelPlacement: EdgeLabelPlacement.shift,
                     interval: 1,
-                    name: 'Date',
                     majorGridLines: MajorGridLines(width: 0),
-                    visibleMinimum: 0,
-                    visibleMaximum: 3
+                    visibleMaximum: 2
                   ),
                   primaryYAxis: NumericAxis(
-                    //title: AxisTitle(text: "Steps", textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                    interval: 100,
+                    interval: maxVerticalAxis()/4,
                       majorGridLines: MajorGridLines(width: 0),
-                    visibleMinimum: 0,
-                    visibleMaximum: maxVerticalAxis(),
+                    visibleMaximum: maxVerticalAxis().toDouble(),
+                    enableAutoIntervalOnZooming: true,
                   ),
                 ),
               ),
@@ -98,12 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-double maxVerticalAxis() {
-  double d;
-  if(getMax()%100 == 0)
-    d = getMax().toDouble();
-  else
-    d = ((getMax()/100)+1)*100;
+int maxVerticalAxis() {
+  int d = getMax();
+  if(d%100 != 0) {
+    d = (d~/100 + 1) * 100;
+  }
   return d;
 }
 

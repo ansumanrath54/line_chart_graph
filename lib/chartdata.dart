@@ -1,42 +1,46 @@
+import 'package:intl/intl.dart';
 
 class ChartData {
   ChartData(this.date, this.steps);
-  final String date;
+  String date;
   int steps;
 }
 
 List<ChartData> getChartData() {
+  DateTime currDt = DateTime.now();
+  final DateFormat formatter = DateFormat('dd-MM');
   List<ChartData> chartData = [
-    ChartData("Sept 1",0),
-    ChartData("Sept 2",60),
-    ChartData("Sept 3",20),
-    ChartData("Sept 4",10),
-    ChartData("Sept 5",120),
-    ChartData("Sept 6",150),
-    ChartData("Sept 7",80),
-    ChartData("Sept 8",60),
-    ChartData("Sept 9",150),
-    ChartData("Sept 10",130),
-    ChartData("Sept 11",200),
-    ChartData("Sept 12",200),
-    ChartData("Sept 13",110),
-    ChartData("Sept 14",190),
-    ChartData("Sept 15",80),
-    ChartData("Sept 16",10),
-    ChartData("Sept 17",30),
-    ChartData("Sept 18",50),
-    ChartData("Sept 19",70),
-    ChartData("Sept 20",90),
-    ChartData("Sept 21",140),
-    ChartData("Sept 22",160),
-    ChartData("Sept 23",130),
-    ChartData("Sept 24",200),
-    ChartData("Sept 25",210),
-    ChartData("Sept 26",220),
-    ChartData("Sept 27",200),
-    ChartData("Sept 28",330),
-    ChartData("Sept 29",170),
-    ChartData("Sept 30",150),
+    ChartData("${formatter.format(currDt.add(Duration(days: 1)))}",0),
+    ChartData("${formatter.format(currDt.add(Duration(days: 2)))}",8000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 3)))}",5080),
+    ChartData("${formatter.format(currDt.add(Duration(days: 4)))}",4200),
+    ChartData("${formatter.format(currDt.add(Duration(days: 5)))}",5500),
+    ChartData("${formatter.format(currDt.add(Duration(days: 6)))}",3000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 7)))}",6000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 8)))}",3500),
+    ChartData("${formatter.format(currDt.add(Duration(days: 9)))}",7300),
+    ChartData("${formatter.format(currDt.add(Duration(days: 10)))}",4000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 11)))}",6000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 12)))}",4100),
+    ChartData("${formatter.format(currDt.add(Duration(days: 13)))}",7900),
+    ChartData("${formatter.format(currDt.add(Duration(days: 14)))}",8000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 15)))}",1040),
+    ChartData("${formatter.format(currDt.add(Duration(days: 16)))}",3050),
+    ChartData("${formatter.format(currDt.add(Duration(days: 17)))}",5040),
+    ChartData("${formatter.format(currDt.add(Duration(days: 18)))}",7020),
+    ChartData("${formatter.format(currDt.add(Duration(days: 19)))}",9080),
+    ChartData("${formatter.format(currDt.add(Duration(days: 20)))}",3400),
+    ChartData("${formatter.format(currDt.add(Duration(days: 21)))}",1600),
+    ChartData("${formatter.format(currDt.add(Duration(days: 22)))}",1300),
+    ChartData("${formatter.format(currDt.add(Duration(days: 23)))}",2000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 24)))}",2100),
+    ChartData("${formatter.format(currDt.add(Duration(days: 25)))}",2200),
+    ChartData("${formatter.format(currDt.add(Duration(days: 26)))}",2000),
+    ChartData("${formatter.format(currDt.add(Duration(days: 27)))}",3300),
+    ChartData("${formatter.format(currDt.add(Duration(days: 28)))}",5700),
+    ChartData("${formatter.format(currDt.add(Duration(days: 29)))}",6500),
+    ChartData("${formatter.format(currDt.add(Duration(days: 30)))}",6800),
+    ChartData("${formatter.format(currDt.add(Duration(days: 31)))}",0),
   ];
   return chartData;
 }

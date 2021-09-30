@@ -44,12 +44,14 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
             body: Center(
               child: Container(
-                width: 300, height: 250,
+                width: 350, height: 280,
                 child: SfCartesianChart(
+                  title: ChartTitle(text: "Steps vs Day"),
                   enableAxisAnimation: false,
                   backgroundColor: Colors.white,
                   tooltipBehavior: _tooltipBehavior,
                   zoomPanBehavior: _zoomPanBehavior,
+                  plotAreaBorderWidth: 0,
                   series: <ChartSeries>[
                     SplineAreaSeries<ChartData, String>(
                       name: "",
@@ -57,27 +59,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       xValueMapper: (ChartData data, _) => data.date,
                       yValueMapper: (ChartData data, _) => data.steps,
                       enableTooltip: true,
-                      borderWidth: 2,
+                      borderWidth: 4,
+                      borderColor: Color(0xff6848D3),
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end:  Alignment.bottomCenter,
                         colors: [
-                        Color(0xffFB7900),
-                        Color(0xff6848D3)
+                          Color(0xff6848D3),
+                          Color(0xff6848D3),
+                          Color(0xffFB7900),
                       ],)
                     )
                   ],
                   primaryXAxis: CategoryAxis(
                     edgeLabelPlacement: EdgeLabelPlacement.shift,
                     interval: 1,
+                      majorTickLines: MajorTickLines(size: 0),
                     majorGridLines: MajorGridLines(width: 0),
-                    visibleMaximum: 2
+                    visibleMaximum: 3
                   ),
                   primaryYAxis: NumericAxis(
-                    interval: maxVerticalAxis()/4,
+                    interval: maxVerticalAxis()/10,
+                      majorTickLines: MajorTickLines(size: 0),
                       majorGridLines: MajorGridLines(width: 0),
                     visibleMaximum: maxVerticalAxis().toDouble(),
-                    enableAutoIntervalOnZooming: true,
                   ),
                 ),
               ),
@@ -87,8 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 int maxVerticalAxis() {
   int d = getMax();
-  if(d%100 != 0) {
-    d = (d~/100 + 1) * 100;
+  if(d%1000 != 0) {
+    d = (d~/1000 + 1) * 1000;
   }
   return d;
 }
